@@ -1,0 +1,120 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node* next;
+	};
+struct node* head=NULL;
+void insertatbeg(int n){
+	     struct node* temp=(struct node*)malloc(sizeof(struct node));
+	     temp->data=n;
+	     temp->next=head;
+	     head=temp;
+	}
+void insertatend(int n){
+	 struct node* temp=(struct node*)malloc(sizeof(struct node));
+	     temp->data=n;
+	     struct node* t1=head;
+	     if(head==NULL){
+	     	head=t1;
+	     	t1->next=NULL;
+	     	}
+	     	else{
+	     		while(t1->next!=NULL){
+	     			t1=t1->next;
+	     			}
+	     			temp->next=t1->next;
+	     			t1->next=temp;
+	     		}
+	}
+void insertatpos(int n,int p){
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	     temp->data=n;
+	     struct node* t1=head;
+	      if(p==1){
+	     	temp->next=head;
+	     	head=temp;
+	     	}
+	      else{
+	      	int i;
+	      	for(i=0;i<p-2;i++){
+	      		t1=t1->next;
+	      		}
+	      		temp->next=t1->next;
+	      		t1->next=temp;
+	      	}
+	}
+void deleteatbeg(){
+	  struct node* t1=head;
+	  head=t1->next;
+	  free(t1);
+	}
+void deleteatend()
+{
+	struct node* t1=head;
+    while(t1->next->next!=NULL){t1=t1->next;}
+	  t1->next=NULL;
+}
+void deleteatpos(int p){
+	struct node* t1=head;
+	int i;
+	for(i=0;i<p-2;i++){
+		t1=t1->next;
+		}
+		t1->next=t1->next->next;
+	}
+void reverse(){
+	struct node* prev=NULL,*current=head,*next;
+	while(current!=NULL){
+		next=current->next;
+		current->next=prev;
+		prev=current;
+		current=next;
+		}
+		head=prev;
+	}
+void search(int target){
+	struct node* t1=head;
+	int pos=1,flag=1;
+	while(t1!=NULL){
+		if(t1->data==target)
+		{
+			flag=0;
+			break;
+		}
+		else{pos++;t1=t1->next;}
+	}
+	if(flag==0){
+		printf("Element found at %d",pos);
+		}
+	else{printf("Element not found");}
+	
+}
+void print(){
+	struct node* t1=head;
+	while(t1!=NULL){
+		printf("%d ",t1->data);
+		t1=t1->next;
+		}
+	}
+void update(int pos,int ele)
+{
+	struct node* t1=head;
+	int i;
+	for(i=0;i<pos-1;i++)
+	{
+		t1=t1->next;
+	}
+	t1->data=ele;
+}
+int main(){
+	insertatpos(2,1);
+	insertatpos(3,2);
+	insertatpos(4,3);
+	insertatpos(5,4);
+	print();
+	printf("\n");
+	update(2,6);
+ reverse();
+	print();
+	}
