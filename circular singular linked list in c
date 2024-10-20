@@ -1,0 +1,162 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node* next;
+	};
+struct node* head;
+void insertatbeg(int n)
+{
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=n;
+	if(head==NULL)
+	{
+		head=temp;
+		head->next=head;
+	}
+	else{
+		struct node* t1=head;
+		
+		while(t1->next!=head)
+		{
+			t1=t1->next;
+		}
+		temp->next=head;
+		head=temp;
+		t1->next=head;
+		}
+}
+void update(int pos,int n){
+	struct node* t1=head;
+	for(int i=0;i<pos-1;i++){
+           t1=t1->next;
+	}
+	t1->data=n;
+}
+void reverse(){
+	struct node* current=head;
+	struct node* next,*prev;
+	do{
+		next=current->next;
+		current->next=prev;
+		prev=current;
+		current=next;
+	}while(current!=head);
+	head=prev;
+}
+void insertatpos(int n,int pos)
+{
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=n;
+	if(pos==1)
+	{
+		if(head==NULL)
+	{
+		head=temp;
+		head->next=head;
+	}
+	else
+	{
+		struct node* t1=head;
+		
+		while(t1->next!=head)
+		{
+			t1=t1->next;
+		}
+		temp->next=head;
+		head=temp;
+		t1->next=head;
+		}
+	}
+	else
+	{
+		int i;
+		struct node* t2=head;
+		for(i=0;i<pos-2;i++)
+		{
+			
+			t2=t2->next;
+		}
+		temp->next=t2->next;
+		t2->next=temp;
+	}
+	}
+void print(){
+	struct node* t1=head;
+      do{
+		printf("%d ",t1->data);
+		t1=t1->next;
+      }while(t1!=head);
+}
+void insatend(int n){
+	struct node* t1=head;
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=n;
+	while(t1->next!=head)
+	{
+		t1=t1->next;
+	}
+	temp->next=t1->next;
+	t1->next=temp;
+	}
+void delatbeg()
+{
+	struct node* t1=head;
+	struct node* t2=head;
+	while(t2->next!=head)
+	{
+		t2=t2->next;
+	}
+	head=t1->next;
+	t2->next=head;
+}
+void search(int n){
+	struct node* t1=head;
+	int flag=0,pos=1;
+	do{
+		if(t1->data==n){
+			flag=1; 
+			break;
+		}
+		else{
+            pos++;
+			t1=t1->next;
+		}
+		
+	}while(t1!=head);
+	if(flag==1){
+		printf("Element found at %d",pos);
+	}
+	else{
+		printf("Element not found");
+	}
+}
+void delatend()
+{
+	struct node* t1=head;
+	while(t1->next->next!=head)
+	{
+		t1=t1->next;
+	}
+	t1->next=head;
+}
+void delatpos(int pos){
+    struct node* t1=head,*t2=head;
+    int i;
+    for(i=0;i<pos-2;i++){
+        t1=t1->next;
+    }
+    t1->next=t1->next->next;
+}
+int main(){
+    insertatpos(1,1);
+    insertatpos(3,2);
+    insertatpos(3,3);
+    insertatpos(4,4);
+    insertatpos(5,5);
+    insertatpos(6,6);
+    print();
+	printf("\n");
+	update(2,2);
+	print();
+	}
