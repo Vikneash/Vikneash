@@ -1,0 +1,40 @@
+#include<stdio.h>
+#define MAX 10
+int a[MAX];
+int top=-1;
+void push(int n){
+    if(top==MAX-1){
+        printf("Stack overflow");
+    }
+    else{a[++top]=n;}
+}
+void pop(){
+    if(top==-1){
+        printf("Stack underflow");
+    }
+    else{
+        top--;
+    }
+}
+void print(){
+    int i;
+    for(i=0;i<=top;i++){
+        printf("%d ",a[i]);
+    }
+}
+void peek(){
+    printf("%d ",a[top]);
+}
+int main(){
+      push(1);
+      push(2);
+      push(3);
+      push(4);
+      push(5);
+      push(6);
+      push(7);
+      push(8);
+      push(9);
+      push(10);
+      print();
+}
