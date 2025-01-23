@@ -1,0 +1,37 @@
+import numpy as np
+import pandas as pd
+from numpy import genfromtxt
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+car=pd.read_csv("Car Price.csv")
+year=car["Year"].values.reshape(-1,1)
+price=car["Selling_Price"].values
+a=car["Year"].values
+
+
+linear=LinearRegression(fit_intercept=True)
+linear.fit(year,price)
+X_train, X_test, y_train, y_test = train_test_split(year,price, test_size=0.4, random_state=2)
+
+
+y_pred=linear.predict(X_train)
+x_pred=linear.predict(X_test)
+
+plt.scatter(X_train,y_train,color="yellow",label="Training Data")
+plt.scatter(X_test,y_test,color="red",label="Tested Data")
+plt.plot(X_train,y_pred,color="green",linestyle='-',linewidth=2,label="Regression Line")
+plt.xticks(np.linspace(min(a),max(a),5))
+plt.yticks(np.linspace(min(price),max(price),5))
+
+plt.legend()
+plt.show()
+
+train_r2=r2_score(y_train,y_pred)
+test_r2=r2_score(y_test,x_pred)
+
+print("r2_score for training data: ",train_r2)
+print("r2_score for testing data: ",test_r2)
+
